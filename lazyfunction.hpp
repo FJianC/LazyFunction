@@ -26,14 +26,14 @@
  * 
  */
 
-template<typename T>
+template<typename Ret>
 class LazyFunction
 {
 public:
 	LazyFunction() = delete;
-	LazyFunction(std::function<T()>&& func) :
+	LazyFunction(std::function<Ret()>&& func) :
 		m_func(std::move(func)), m_is_init(false) {}
-	LazyFunction(const LazyFunction<T>&) = delete;
+	LazyFunction(const LazyFunction<Ret>&) = delete;
 	~LazyFunction() = default;
 
 	template<typename Func, typename ...Args>
@@ -42,7 +42,7 @@ public:
 		m_is_init = false;
 	}
 
-	LazyFunction<T>& operator=(const LazyFunction<T>&) = delete;
+	LazyFunction<Ret>& operator=(const LazyFunction<Ret>&) = delete;
 
 	bool IsInit() const { return m_is_init; }
 
@@ -57,8 +57,8 @@ public:
 	}
 
 private:
-	std::function<T()>() m_func;
-	T m_value;
+	std::function<Ret()>() m_func;
+	Ret m_value;
 	bool m_is_init;
 };
 
