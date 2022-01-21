@@ -34,6 +34,7 @@ public:
 	LazyFunction(std::function<T()>&& func) :
 		m_func(std::move(func)), m_is_init(false) {}
 	LazyFunction(const LazyFunction<T>&) = delete;
+	~LazyFunction() = default;
 
 	template<typename Func, typename ...Args>
 	LazyFunction(Func&& f, Args&&... args) {
